@@ -23,5 +23,6 @@ def process_images(folder_path):
                 resized.save(output_path)
             index += 1
 
-folder_path = './selfish'  # 替换为你的文件夹路径
-process_images(folder_path)
+if __name__ == '__main__':
+    folder_path = './selfish'  # 替换为你的文件夹路径
+    process_images(folder_path)
