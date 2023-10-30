@@ -1,5 +1,6 @@
 from PIL import Image
 import os
+import shutil
 
 def crop_center(img):
     width, height = img.size
@@ -21,8 +22,11 @@ def process_images(folder_path):
                 resized = cropped.resize((32, 32), Image.ANTIALIAS)
                 output_path = os.path.join(folder_path, f"{index}.jpg")
                 resized.save(output_path)
+            os.remove(image_path)
             index += 1
 
 if __name__ == '__main__':
-    folder_path = './selfish'  # 替换为你的文件夹路径
+    folder_path = './selfish'
+    dest_path = './PIE/0'
     process_images(folder_path)
+    shutil.move(folder_path, dest_path)
