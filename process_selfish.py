@@ -11,7 +11,7 @@ def crop_center(img):
     bottom = (height + length) / 2
     return img.crop((left, top, right, bottom))
 
-def process_images(folder_path):
+def process_images(folder_path, out_folder_path):
     index = 1
     for filename in os.listdir(folder_path):
         if filename.lower().endswith(('.png', '.jpg', '.jpeg')):
@@ -20,13 +20,13 @@ def process_images(folder_path):
                 grayscale = img.convert('L')
                 cropped = crop_center(grayscale)
                 resized = cropped.resize((32, 32), Image.ANTIALIAS)
-                output_path = os.path.join(folder_path, f"{index}.jpg")
+                output_path = os.path.join(out_folder_path, f"{index}.jpg")
                 resized.save(output_path)
-            os.remove(image_path)
             index += 1
 
 if __name__ == '__main__':
-    folder_path = './selfish'
+    folder_path = './selfish' # Please adjust to your own selfish directory
     dest_path = './PIE/0'
-    process_images(folder_path)
-    shutil.move(folder_path, dest_path)
+    if not os.path.exists(dest_path):
+        os.makedirs(dest_path)
+    process_images(folder_path, dest_path)

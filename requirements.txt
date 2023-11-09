@@ -1,0 +1,7 @@
+Pillow
+numpy
+torch
+torchvision
+libsvm-official
+matplotlib
+prettytable
