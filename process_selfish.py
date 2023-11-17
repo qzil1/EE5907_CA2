@@ -19,7 +19,7 @@ def process_images(folder_path, out_folder_path):
             with Image.open(image_path) as img:
                 grayscale = img.convert('L')
                 cropped = crop_center(grayscale)
-                resized = cropped.resize((32, 32), Image.ANTIALIAS)
+                resized = cropped.resize((32, 32), Image.LANCZOS)
                 output_path = os.path.join(out_folder_path, f"{index}.jpg")
                 resized.save(output_path)
             index += 1

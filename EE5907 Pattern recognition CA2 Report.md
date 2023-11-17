@@ -41,13 +41,13 @@ Since 7 is a prime root of 68, no one will be repeated. And the detailed choice 
 1. Training PCA and nearest neighbor with the **sampled 500** images
 
 ```latex
-Dimension 40: Accuracy on PIE = 0.4592307692307692
+Dimension 40: Accuracy on PIE = 0.4584615384615385
 Dimension 40: Accuracy on Selfish = 1.0
 
 Dimension 80: Accuracy on PIE = 0.4976923076923077
 Dimension 80: Accuracy on Selfish = 1.0
 
-Dimension 200: Accuracy on PIE = 0.51
+Dimension 200: Accuracy on PIE = 0.5107692307692308
 Dimension 200: Accuracy on Selfish = 1.0
 ```
 
@@ -99,6 +99,22 @@ Dimension 9: Accuracy on Selfish = 1.0
 
 ### 5.1 The classification accuracy with different parameters and dimensions
 
+#### 5.1.1 Raw face images (vectorized) as inputs to linear SVM
+
+```latex
+Raw image vectorized, C: 0.01
+Accuracy = 98.5418% (1284/1303) (classification)
+------------------------------------------------------------
+Raw image vectorized, C: 0.1
+Accuracy = 98.5418% (1284/1303) (classification)
+------------------------------------------------------------
+Raw image vectorized, C: 1
+Accuracy = 98.5418% (1284/1303) (classification)
+------------------------------------------------------------
+```
+
+#### 5.1.2 The face vectors after PCA pre-processing (with dimensionality of 80 and 200) as inputs to linear SVM
+
 ```latex
 Dimension: 80, C: 0.01
 Accuracy = 98.1581% (1279/1303) (classification)
@@ -128,15 +144,18 @@ Accuracy = 98.6186% (1285/1303) (classification)
 | 200       | 0.01 | 98.6186% |
 | 200       | 0.1  | 98.6186% |
 | 200       | 1    | 98.6186% |
+| Raw image | 0.01 | 98.5418% |
+| Raw image | 0.1  | 98.5418% |
+| Raw image | 1    | 98.5418% |
 
 ### 5.2 Discuss the effect of data dimension and parameter C on the final classification accuracy
 
-We can notice that when we increased the dimensionality, the accuracy rised a little bit. But when we adjusted *C*, and the accuarcy remains unchanged. The following is the discussion on these two phenomenons. 
+We can notice that when we increased the dimensionality, the accuracy raised a little bit, and when we used the raw image vectorized data, the accuracy even fell down. Besides, when we adjusted *C*, and the accuracy remains unchanged. The following is the discussion on these two phenomenons. 
 
-#### Increase in Accuracy with Higher Dimensions
+#### Increase in Accuracy with Higher Dimensions from 80 to 200 & Decrease when using raw image vectorized data
 
 1. **Information Retention**: As we increased the dimensionality, more information from the original data is preserved. This added information can be crucial for distinguishing between classes, thus improving accuracy.
-2. **Balance in Dimensionality**: The initial increase in dimensions might be capturing essential features that were previously ignored in the low dimension project. However, it's also worth-noticing that beyond a certain point, adding more dimensions could introduce noise or irrelevant information, which might not further improve or could even decrease accuracy.
+2. **Balance in Dimensionality**: The initial increase in dimensions might be capturing essential features that were previously ignored in the low dimension project. However, it's also worth-noticing that beyond a certain point, adding more dimensions could introduce noise or irrelevant information, which might not further improve or could even decrease accuracy. And in our case, the raw image vectorized data may include certain noise, causing the decrease in accuracy.
 
 #### Minimal Effect of changing the regularization parameter C
 
